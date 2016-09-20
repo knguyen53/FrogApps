@@ -3,14 +3,16 @@
  * https://github.com/facebook/react-native
  * @flow
  */
+'use strict';
 
-import React, { Component } from 'react';
-import {
+var React = require('react-native');
+
+var {
   AppRegistry,
   StyleSheet,
   Text,
   View
-} from 'react-native';
+} = React;
 
 class FrogAppsMobile extends Component {
   render() {
