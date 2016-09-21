@@ -11,7 +11,7 @@ var {
   TouchableOpacity,
 } = React;
 
-var SpashScreen = require('./screens/splashscreen')
+var SplashScreen = require('./screens/splashscreen')
 var WelcomeScreen = require('./screens/welcome')
 var AppList = require('./screens/applist')
 var AppDetail = require('./screens/appdetails')
@@ -20,7 +20,7 @@ class App extends Component{
   render(){
      return (
       <Navigator
-          initialRoute={{id: 'SplashPage', name: 'Index'}}
+          initialRoute={{id: 'SplashScreen', name: 'Index'}}
           renderScene={this.renderScene.bind(this)}
           configureScene={(route) => {
             if (route.sceneConfig) {
@@ -32,38 +32,43 @@ class App extends Component{
   }
   renderScene(route, navigator) {
     var routeId = route.id;
-    if (routeId === 'SplashPage') {
+    if (routeId === 'SplashScreen') {
       return (
-        <SplashPage
+        <SplashScreen
           navigator={navigator} />
       );
     }
-    if (routeId === 'LoginPage') {
+    if (routeId === 'WelcomeScreen') {
       return (
-        <LoginPage
+        <WelcomeScreen
           navigator={navigator} />
       );
     }
-    if (routeId === 'MainPage') {
+    if (routeId === 'AppList') {
       return (
-        <MainPage
+        <AppList
             navigator={navigator} />
       );
     }
-    if (routeId === 'PersonPage') {
+    if (routeId === 'AppDetail') {
       return (
-        <PersonPage
+        <AppDetail
           navigator={navigator} />
-      );
-    }
-    if (routeId === 'NoNavigatorPage') {
-      return (
-        <NoNavigatorPage
-            navigator={navigator} />
       );
     }
     return this.noRoute(navigator);
 
+  }
+
+  noRoute(navigator) {
+    return (
+      <View style={{flex: 1, alignItems: 'stretch', justifyContent: 'center'}}>
+        <TouchableOpacity style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}
+            onPress={() => navigator.pop()}>
+          <Text style={{color: 'red', fontWeight: 'bold'}}>No Route</Text>
+        </TouchableOpacity>
+      </View>
+    );
   }
 }
 
