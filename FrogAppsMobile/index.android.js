@@ -1,37 +1,73 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+'use strict';
 
-import React, { Component } from 'react';
-import {
+var React = require('react-native');
+var {
   AppRegistry,
   StyleSheet,
+  Component,
   Text,
-  View
-} from 'react-native';
+  View,
+  Navigator,
+  TouchableOpacity,
+} = React;
 
-class FrogAppsMobile extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+var SpashScreen = require('./screens/splashscreen')
+var WelcomeScreen = require('./screens/welcome')
+var AppList = require('./screens/applist')
+var AppDetail = require('./screens/appdetails')
+
+class App extends Component{
+  render(){
+     return (
+      <Navigator
+          initialRoute={{id: 'SplashPage', name: 'Index'}}
+          renderScene={this.renderScene.bind(this)}
+          configureScene={(route) => {
+            if (route.sceneConfig) {
+              return route.sceneConfig;
+            }
+            return Navigator.SceneConfigs.FloatFromRight;
+          }} />
     );
+  }
+  renderScene(route, navigator) {
+    var routeId = route.id;
+    if (routeId === 'SplashPage') {
+      return (
+        <SplashPage
+          navigator={navigator} />
+      );
+    }
+    if (routeId === 'LoginPage') {
+      return (
+        <LoginPage
+          navigator={navigator} />
+      );
+    }
+    if (routeId === 'MainPage') {
+      return (
+        <MainPage
+            navigator={navigator} />
+      );
+    }
+    if (routeId === 'PersonPage') {
+      return (
+        <PersonPage
+          navigator={navigator} />
+      );
+    }
+    if (routeId === 'NoNavigatorPage') {
+      return (
+        <NoNavigatorPage
+            navigator={navigator} />
+      );
+    }
+    return this.noRoute(navigator);
+
   }
 }
 
-const styles = StyleSheet.create({
+var styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -50,4 +86,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('FrogAppsMobile', () => FrogAppsMobile);
+AppRegistry.registerComponent('FrogApps', () => App);
