@@ -30,6 +30,7 @@ class App extends Component{
           }} />
     );
   }
+  
   renderScene(route, navigator) {
     var routeId = route.id;
     if (routeId === 'SplashScreen') {
